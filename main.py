@@ -1,12 +1,16 @@
 import pygame
 import time
+import random
+import math
 
 nome_aventureiro = None
 classe = None
 itens = []
 tem_erro = False
 missao_inicial = "\nOlá novamente! Irei lhe passar sua \nprimeira missão, portanto espero que esteja preparado!Sua missão é ir até a \nmontanha de Corcovado, Powerpoint, que é o reino vizinho ao nosso. Lá é onde se \nlocalizam os goblins, servos do rei tiranico que atormenta nossa cidade...Mas \napresse-se, os goblins estão a caminho daqui e chegam em algumas horas!"
-
+xp = 0
+nivel = math.floor(xp/10)
+vida = 100
 
 textao_bem_vindo = """
 Bem vindo, {nome_aventureiro}! 
@@ -27,6 +31,7 @@ def mostra_itens():
         print(f"- {item}")
 
 def main():
+    global vida
     global classe
     global tem_erro
     global missao_inicial
@@ -73,5 +78,38 @@ def main():
     print("Você se depara com 3 globins enquanto escala a montanha de Corcovado, o que deseja fazer? (Seu HP está em 100)")
     acao_realizada = input("1 - Correr \n2 - Atacar \n3 - defender \n")
 
+    if acao_realizada == "1":
+        o_que_aconteceu = random.choice['fugiu' , 'foi pego' , 'foi pego' , 'morreu']
+        
+        if o_que_aconteceu == 'fugiu':
+            print("Você consegue fugir. Ao chegar na cidade todos ficam furiosos com você, \nentão você é expulso e tem que vagar pelo perigo. Final ruim")
+        elif o_que_aconteceu == 'foi pego':
+            print("Você tenta fugir, mas eles te param, a batalha não terminou.")
+            acao_realizada = input("1 - Correr \n2 - Atacar \n3 - defender \n")
+        elif o_que_aconteceu == 'morreu':
+            print("Você tenta fugir, mas eles jogam suas armas em você e você morre")
+        
+    if acao_realizada == "2":
+        quantos_atingidos = random.choice['1' , '2' , '3']
+
+        if quantos_atingidos == 1:
+            print ("Você ataca e acerta um dos goblins, ele cai morto no chão.")
+            xp += 10
+        elif quantos_atingidos == 2:
+            print ("Você ataca e acerta dois dos goblins, eles caem no chão mortos")
+            xp += 20
+        elif quantos_atingidos == 3:
+            print("Você usa seu ataque mais poderoso, e depois apenas é possível ouvir os goblins caindo \n todos foram derrotados por você.")
+            xp += 30
+
+    if acao_realizada == "3":
+        defesa = 10
+        ataque_1 = random.choice[1 , 2 , 3]
+        ataque_2 = random.choice[1 , 2 , 3]
+        ataque_3 = random.choice[1 , 2 , 3]
+
+        vida = vida - (ataque_1 + ataque_2 + ataque_3) + 10
+    
+        print(f"restou {vida} de vida para você")
 
 main()
