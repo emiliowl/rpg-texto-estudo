@@ -1,6 +1,7 @@
 nome_aventureiro = None
 classe = None
 itens = []
+controle_erros = False
 
 textao_bem_vindo = """
 Bem vindo, {nome_aventureiro}! 
@@ -18,13 +19,25 @@ def mostra_itens():
 
 def main():
     global classe
+    global controle_erros
     print("Ola aventureiro! Seja bem vindo!")
     nome_aventureiro = input("Digite seu nome aqui, aventureiro: ")
     imprime_textao(textao_bem_vindo, {"nome_aventureiro": nome_aventureiro})
 
     print(f"{nome_aventureiro}, voce quer armas de guerreiro ou mago?")
     while classe not in ["guerreiro", "mago"]:
-        classe = input("Digite 'guerreiro' ou 'mago': ")
+
+        if controle_erros == True:
+            print("A classe solicitada não está disponível")
+            classe = input("Digite 'guerreiro' ou 'mago': ")
+
+        else:
+            classe = input("Digite 'guerreiro' ou 'mago': ")
+        
+        if classe not in ["guerreiro", "mago"]:
+            controle_erros = True
+        else:
+            controle_erros = False
 
     if classe == "guerreiro":
         itens.append("espada")
