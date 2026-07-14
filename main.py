@@ -71,7 +71,7 @@ def main():
 
     pygame.mixer.music.stop
     
-    pygame.mixer.music.load("luta1.mp3")
+    pygame.mixer.music.load("luta-1.mp3")
     pygame.mixer.music.play()
     time.sleep(1.5)
 
